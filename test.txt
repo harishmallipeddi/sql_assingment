@@ -1,0 +1,88 @@
+| No. | Question Summary | Correct Answer | Explanation |
+| --- | --- | --- | --- |
+| 1 | DDL command | ✅ **CREATE** | DDL (Data Definition Language) defines structure — CREATE, ALTER, DROP. |
+| 2 | Create new database | ✅ **CREATE DATABASE** | Used to make a new database. |
+| 3 | Removes all records but keeps structure | ✅ **TRUNCATE** | Deletes data but keeps table schema. |
+| 4 | Deletes table structure and data permanently | ✅ **DROP** | Removes table completely. |
+| 5 | Rename existing table | ✅ **RENAME TABLE old_name TO new_name;** | Changes table name. |
+| 6 | INSERT command | ✅ **Add new rows to a table** | Used to insert data. |
+| 7 | UPDATE command | ✅ **Modify existing data** | Used to change values in rows. |
+| 8 | Delete specific records | ✅ **DELETE** | Removes selected rows using WHERE. |
+| 9 | Retrieve data | ✅ **SELECT** | Used to fetch data from tables. |
+| 10 | DML command | ✅ **INSERT** | DML (Data Manipulation Language) includes INSERT, UPDATE, DELETE, SELECT. |
+
+-- 1. Create a database
+CREATE DATABASE CompanyDB;
+
+-- 2. Create Employee table
+CREATE TABLE Employee (
+    EmpID INT,
+    EmpName VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+
+-- 3. Insert multiple records
+INSERT INTO Employee (EmpID, EmpName, Salary)
+VALUES (101, 'Ravi', 50000),
+       (102, 'Priya', 60000),
+       (103, 'Kiran', 45000);
+
+-- 4. Update Ravi’s salary
+UPDATE Employee
+SET Salary = 55000
+WHERE EmpName = 'Ravi';
+
+-- 5. Increase salary by 10%
+UPDATE Employee
+SET Salary = Salary * 1.10;
+
+-- 6. Delete employee with EmpID = 103
+DELETE FROM Employee
+WHERE EmpID = 103;
+
+-- 7. Delete all records but keep structure
+TRUNCATE TABLE Employee;
+
+-- 8. Remove Employee table completely
+DROP TABLE Employee;
+
+-- 9. Rename Employee to Staff
+RENAME TABLE Employee TO Staff;
+
+-- 10. Drop the database
+DROP DATABASE CompanyDB;
+
+-- 11. Display names and salaries > 50000
+SELECT EmpName, Salary
+FROM Employee
+WHERE Salary > 50000;
+
+-- 12. Total salary per department
+SELECT DeptName, SUM(Salary) AS TotalSalary
+FROM Employee
+GROUP BY DeptName;
+
+-- 13. Departments with avg salary > 60000
+SELECT DeptName, AVG(Salary) AS AvgSalary
+FROM Employee
+GROUP BY DeptName
+HAVING AVG(Salary) > 60000;
+
+-- 14. Display first 5 rows
+SELECT * FROM Employee
+LIMIT 5;
+
+
+| Feature | Primary Key | Foreign Key |
+| --- | --- | --- |
+| Purpose | Uniquely identifies each record in a table | Links one table to another |
+| Uniqueness | Must be unique | Can repeat values |
+| Nulls | Cannot be NULL | Can be NULL |
+| Example | ``EmpID`` in Employee table | ``DeptID`` in Employee referencing Department table |
+
+| Type | Description | Example |
+| --- | --- | --- |
+| **INNER JOIN** | Returns matching rows from both tables | ``SELECT ``* ``FROM ``A ``INNER ``JOIN ``B ``ON ``A.id ``= ``B.id;`` |
+| **LEFT JOIN** | Returns all rows from left table + matches from right | ``SELECT ``* ``FROM ``A ``LEFT ``JOIN ``B ``ON ``A.id ``= ``B.id;`` |
+| **RIGHT JOIN** | Returns all rows from right table + matches from left | ``SELECT ``* ``FROM ``A ``RIGHT ``JOIN ``B ``ON ``A.id ``= ``B.id;`` |
+| **FULL JOIN** | Returns all rows from both tables | ``SELECT ``* ``FROM ``A ``FULL ``JOIN ``B ``ON ``A.id ``= ``B.id;`` |
